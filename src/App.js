@@ -7,10 +7,9 @@ import pandas from "./pandas.json";
 
 class App extends React.Component {
   state = {
-    gameEnd: false,
     userScore: 0,
     topScore: 0,
-    selectedID: 0
+    selectedID: []
   };
 
   shuffleCards = () => {
@@ -25,24 +24,21 @@ class App extends React.Component {
   onClickfun = (id) => {
     console.log(id);
     console.log(this.state.selectedID);
-    if((this.state.selectedID===0) || 
-    ((this.state.selectedID>0)&&
-    (this.state.selectedID===id))){
+    if (!this.state.selectedID.includes(id)){
       this.setState({
-        selectedID: id,
+        selectedID: this.state.selectedID.concat(id),
         userScore: this.state.userScore+1
         })
         console.log(this.state.userScore);
     }
     else {
       this.setState({
-        selectedID: 0,
+        selectedID: [],
         userScore: 0
         })
     }
     this.setTopScore();
     this.shuffleCards();
-    this.setState(this.state);
   }
 
   createCards = () => {
